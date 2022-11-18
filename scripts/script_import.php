@@ -1,11 +1,10 @@
-
-
 <?php
 require_once("structs/These.php");
 require_once("structs/Personne.php");
 require_once("structs/Role.php");
 require_once("structs/Etablissement.php");
 require_once("structs/Sujet.php");
+require_once("structs/oai.php");
 
 function MakeThese($data){
     $these = new These();
@@ -85,6 +84,15 @@ function getSujets($data){
     return $sujets;
 }
 
+function getoais($data){
+    $oais = array();
+    if (isset($data["oai_set_specs"])) {
+        foreach($data["oai_set_specs"] as $oai){
+            $oais[] = new oai($oai);
+        }
+    }
+    return $oais;
+}
 
 
 if(!file_exists('extract_theses.json')){
@@ -102,9 +110,10 @@ foreach($data as $theseData){
     $personnes = getPersonnes($theseData);
     $etablissements = getEtablissements($theseData);
     $sujets = getSujets($theseData);
-    
-    foreach($sujets as $sujet){
-        $sujet->printSujet();
+    $oais = getoais($theseData);
+
+    foreach($oais as $oai){
+        $oai->printoai();
     }
 
     echo "<br><br><br><br>";
