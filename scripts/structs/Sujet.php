@@ -1,17 +1,17 @@
 <?php
-class Sujets{
+class Sujet{
     private string $libelle;
 
     public function __construct(string $libelle){
         $this->libelle = $libelle;
     }
 
-    public function printSujets(){
+    public function printSujet(){
         echo "Sujets: <br>";
         echo "Libelle: ".$this->libelle;
     }
 
-    public function insertSujets($cnx){
+    public function insertSujet($cnx){
         //TODO
     }
 }

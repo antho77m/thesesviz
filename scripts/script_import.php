@@ -5,6 +5,7 @@ require_once("structs/These.php");
 require_once("structs/Personne.php");
 require_once("structs/Role.php");
 require_once("structs/Etablissement.php");
+require_once("structs/Sujet.php");
 
 function MakeThese($data){
     $these = new These();
@@ -76,8 +77,10 @@ function getEtablissements($data){
 
 function getSujets($data){
     $sujets = array();
-    foreach($data["sujets"] as $sujet){
-        $sujets[] = new Sujet($sujet["libelle"]);
+    if (isset($data["sujets"]["fr"])) {
+        foreach($data["sujets"]["fr"] as $sujet){
+            $sujets[] = new Sujet($sujet);
+        }
     }
     return $sujets;
 }
@@ -98,8 +101,11 @@ foreach($data as $theseData){
     $these = MakeThese($theseData);
     $personnes = getPersonnes($theseData);
     $etablissements = getEtablissements($theseData);
-    $sujets = getSujet($theseData);
-
+    $sujets = getSujets($theseData);
+    
+    foreach($sujets as $sujet){
+        $sujet->printSujet();
+    }
 
     echo "<br><br><br><br>";
 
