@@ -17,7 +17,7 @@ class These {
     }
 
     public function insertThese($cnx){
-        
+        //TODO
     }
     
     // Getters and setters

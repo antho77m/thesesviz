@@ -13,13 +13,13 @@ class Etablissement {
     }
 
     public function insertEtablissement($cnx){
-
+        //TODO
     }
 
     public function printEtablissement(){
         echo "Etablissement: <br>";
-        echo "Nom: ".$this->nom;
-        echo "idref: ".$this->idref?$this->idref:"NULL";
+        echo "Nom: ".$this->nom."<br>";
+        echo "idref: ".($this->idref?$this->idref:"NULL")."<br>";
 
     }
 

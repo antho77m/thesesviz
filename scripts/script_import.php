@@ -28,55 +28,71 @@ function MakeThese($data){
 }
 
 
+
 function getPersonnes($data){
-"president_jury";
-if ($data["president_jury"]) {
-    $president = new Personne($data["president_jury"]["nom"], $data["president_jury"]["prenom"], new Role("president_jury"));
-}
-$roles = array("directeurs_these","membres_jury","auteurs");
     $personnes = array();
+    
+
+    if ($data["president_jury"]) {
+        $prenom = $data["president_jury"]["prenom"]?$data["president_jury"]["prenom"]:"";
+        $president = new Personne($data["president_jury"]["nom"],$prenom, new Role("president_jury"));
+        if (isset($data["president_jury"]["idref"])) {
+            $president->setIdref($data["president_jury"]["idref"]);
+        }
+        $personnes[] = $president;
+    }
+
+    //gestion des roles pouvant avoir plusieurs personnes
+    $roles = array("directeurs_these","membres_jury","auteurs"); 
     foreach($roles as $role){
         if(isset($data[$role])){
-            
-            if (is_array($data[$role])){
-                
-                foreach($data[$role] as $personne){
-                    $p = new Personne($personne["nom"],$personne["prenom"]?$personne["prenom"]:"",new Role($role));
-                    if(isset($personne["idref"])){
-                        $p->setIdref($personne["idref"]);
-                    }
-                    $p->printPersonne();
-                    $personnes[] = $p;
-                    
-                }
-
-            }else{
-                $personne = $data[$role];
-                $p = new Personne($personne["nom"],$personne["prenom"],new Role($role));
+        
+            foreach($data[$role] as $personne){
+                $prenom =$personne["prenom"]?$personne["prenom"]:""; //gestion des personnes sans prenom
+                $p = new Personne($personne["nom"],$prenom,new Role($role));
                 if(isset($personne["idref"])){
                     $p->setIdref($personne["idref"]);
                 }
-                $p->printPersonne();
-                $personnes[] = $p;
-                
+                $personnes[] = $p;                
             }
+
         }
             
-        }
+    }
     return $personnes;
+}
+
+function getEtablissements($data){
+    $etablissements = array();
+    foreach($data["etablissements_soutenance"] as $etablissement){
+        $eta = new Etablissement($etablissement["nom"]);
+        if(isset($etablissement["idref"])){
+            $eta->setIdref($etablissement["idref"]);
+        }
+        $etablissements[] = $eta;
+    }
+    return $etablissements;
 }
 
 
 
-$jsondata = file_get_contents ('extract_theses.json');
-$data = json_decode($jsondata, true);
-foreach($data as $theseData){
-    echo "Personne dans la these:<br>";
-    $personnes = getPersonnes($theseData);
-    //echo "These:<br>";
-    //$these = MakeThese($theseData);
+if(!file_exists('extract_theses.json')){
+    exit("File not found");
+}
+try {
+    $jsondata = file_get_contents ('extract_theses.json');
+    $data = json_decode($jsondata, true);
     
-
+} catch (Exception $e) {
+    exit("Error while reading file");
+}
+foreach($data as $theseData){
+    $these = MakeThese($theseData);
+    $personnes = getPersonnes($theseData);
+    $etablissements = getEtablissements($theseData);
+    foreach($etablissements as $etablissement){
+        $etablissement->printEtablissement();
+    }
     echo "<br><br><br><br>";
 
 }
