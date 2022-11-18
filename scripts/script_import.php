@@ -74,6 +74,14 @@ function getEtablissements($data){
     return $etablissements;
 }
 
+function getSujets($data){
+    $sujets = array();
+    foreach($data["sujets"] as $sujet){
+        $sujets[] = new Sujet($sujet["libelle"]);
+    }
+    return $sujets;
+}
+
 
 
 if(!file_exists('extract_theses.json')){
@@ -90,9 +98,9 @@ foreach($data as $theseData){
     $these = MakeThese($theseData);
     $personnes = getPersonnes($theseData);
     $etablissements = getEtablissements($theseData);
-    foreach($etablissements as $etablissement){
-        $etablissement->printEtablissement();
-    }
+    $sujets = getSujet($theseData);
+
+
     echo "<br><br><br><br>";
 
 }

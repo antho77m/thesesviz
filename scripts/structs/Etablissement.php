@@ -1,18 +1,18 @@
 <?php
 
 class Etablissement {
-    private $idref;
-    private $nom;
+    private string $idref;
+    private string $nom;
 
-    public function __construct($nom){
+    public function __construct(string $nom){
         $this->nom = $nom;
     }
 
-    public function setIdRef($idref){
+    public function setIdRef(string $idref){
         $this->idref = $idref;
     }
 
-    public function insertEtablissement($cnx){
+    public function insertEtablissement(PDO $cnx){
         //TODO
     }
 
