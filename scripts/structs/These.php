@@ -5,7 +5,7 @@ class These {
     private $these_sur_travaux;
     private $date_soutenance;
     private $embargo;
-    private $langue="fr";
+    private $langue;
     private $en_ligne;
     private $nnt;
     private $resume;

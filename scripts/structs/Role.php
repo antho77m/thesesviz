@@ -1,8 +1,8 @@
 <?php
 class Role{
-    private $libelle;
+    private string $libelle;
 
-    public function __construct($libelle){
+    public function __construct(string $libelle){
         $this->libelle = $libelle;
     }
 

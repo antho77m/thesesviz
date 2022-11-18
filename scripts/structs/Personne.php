@@ -1,24 +1,24 @@
 <?php
 class Personne{
-    private $idref;
-    private $nom;
-    private $prenom;
-    private $roles;    
+    private string $idref;
+    private string $nom;
+    private string $prenom;
+    private Role $role;    
 
-    public function __construct($nom, $prenom, $roles){
+    public function __construct(string $nom,string $prenom,Role $role){
         $this->nom = $nom;
         $this->prenom = $prenom;
-        $this->roles = $roles;
+        $this->role = $role;
     }
 
     public function printPersonne(){
         echo "Personne: <br>";
-        echo "Nom: ".$this->nom;
-        echo "Prenom: ".$this->prenom;
-        echo "Roles: ".$this->roles;
+        echo "Nom: ".$this->nom."<br>";
+        echo "Prenom: ".$this->prenom."<br>";
+        $this->role->printRoles();
     }
 
-    public function insertPersonne($cnx){
+    public function insertPersonne(PDO $cnx){
         $this->roles->insertRoles($cnx);
 
     }
