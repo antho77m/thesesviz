@@ -43,7 +43,7 @@
 
     <footer>
         <a href="https://github.com/antho77m/thesesviz">lien du projet</a> <br>
-        <a href="../../reporting.txt"> rapport</a>
+        <a href="../../reporting.txt"> reporting</a>
     </footer>
 
 </body>
