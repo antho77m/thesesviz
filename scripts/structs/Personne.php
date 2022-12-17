@@ -23,8 +23,17 @@ class Personne{
 
         $idref = $this->idref!=""?$this->idref:NULL;
         $prenom = $this->prenom!=""?$this->prenom:NULL;
-        
-        $req = $cnx->prepare("SELECT id FROM personnes WHERE nom=:nom AND idref = :idref AND prenom = :prenom");
+        if($idref == NULL && $prenom == NULL){
+            $req = $cnx->prepare("SELECT id FROM personnes WHERE nom=:nom AND idref IS :idref AND prenom IS :prenom");
+        }else if($idref == NULL){
+            $req = $cnx->prepare("SELECT id FROM personnes WHERE nom=:nom AND idref IS :idref AND prenom = :prenom");
+        }else if($prenom == NULL){
+            $req = $cnx->prepare("SELECT id FROM personnes WHERE nom=:nom AND idref = :idref AND prenom IS :prenom");
+        }else{
+            $req = $cnx->prepare("SELECT id FROM personnes WHERE nom=:nom AND idref = :idref AND prenom = :prenom");
+        }
+
+        //$req = $cnx->prepare("SELECT id FROM personnes WHERE nom=:nom AND idref = :idref AND prenom = :prenom");
         $req->bindParam(':nom',$this->nom);
         $req->bindParam(':prenom',$prenom);
         $req->bindParam(':idref',$idref);

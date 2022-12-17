@@ -23,7 +23,7 @@ function MakeThese($data){
         $these->setResume($data["resumes"]["fr"]);
     }
     $these->setSoutenue($data["status"]=="soutenue"?1:0);
-    if (isset($data["titre"]["fr"])) {
+    if (isset($data["titres"]["fr"])) {
         $these->setTitre($data["titres"]["fr"]);
     }
     return $these;
@@ -115,6 +115,7 @@ echo "Import lancé a : ".date("H:i:s")."<br>";
 $cnx->exec("BEGIN");
 foreach($data as $theseData){
     $these = MakeThese($theseData);
+    
     $personnes = getPersonnes($theseData);
     $etablissements = getEtablissements($theseData);
     $sujets = getSujets($theseData);

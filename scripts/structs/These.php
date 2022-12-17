@@ -29,7 +29,7 @@ class These {
         $req ->bindParam(":resume",$this->resume);
         $req ->bindParam(":soutenue",$this->soutenue);
         $req ->bindParam(":titre",$this->titre);
-
+        
 
         $req->execute();
         return $cnx->lastInsertId();
