@@ -15,7 +15,12 @@ class Etablissement {
     }
 
     public function insertEtablissement(PDO $cnx, int $theseId){
-        $prep = $cnx->prepare("SELECT * FROM etablissement WHERE nom = :nom AND idref = :idref");
+        if($this->idref==""){
+            $prep = $cnx->prepare("SELECT * FROM etablissement WHERE nom = :nom AND idref IS :idref");
+        }else{
+            $prep = $cnx->prepare("SELECT * FROM etablissement WHERE nom = :nom AND idref = :idref");
+        }
+        
         $prep->bindParam(':nom', $this->nom);
         $idref = $this->idref!=""?$this->idref:NULL;
         $prep->bindParam(':idref', $idref);
@@ -33,11 +38,20 @@ class Etablissement {
             //echo "etablissement deja present nom: ".$this->nom." idref: ".$this->idref."<br>";
             $id = $prep->fetch()['id'];//on recupere l'id de l'etablissement
         }
-        
         $prep =$cnx->prepare("SELECT * FROM presente WHERE id_these = :theseId AND id = :id");
         $prep->bindParam(':theseId', $theseId);
         $prep->bindParam(':id', $id);
         $prep->execute();
+        if($prep->rowCount() == 0){
+            //echo "insertion presente theseId: ".$theseId." id: ".$id."<br>";
+            $req = $cnx->prepare("INSERT INTO presente (id_these,id)VALUES (:theseId,:id)");
+            $req -> bindParam(':theseId', $theseId);
+            $req -> bindParam(':id', $id);
+            $req->execute();
+        }
+        else{
+            //echo "presente deja presente theseId: ".$theseId." id: ".$id."<br>";
+        }
         
 
     }
