@@ -9,12 +9,13 @@
         foreach($result as $row){
             echo '<div class="these">';
             echo '<h3>'.$row['titre'].'</h3>';
-            echo '<p>'.$row['resume'].'</p>';
-            echo '<p> These écrite par '.$row['nom'].' '.$row['prenom'].'</p>';
+            echo '<p class="resume">'.$row['resume'].'</p>';
+            echo '<p class="autheur"> These écrite par '.$row['nom'].' '.$row['prenom'].'</p>';
             echo '</div>';
         }
 
     }
+
 
     function selectBySearch(){
         if(isset($_GET['search'])){
@@ -24,8 +25,8 @@
             $req = $cnx->prepare("SELECT id_these FROM these WHERE titre LIKE '%$search%'");
             $req->execute();
             $result = $req->fetchAll();
-            echo 'resultat de la recherche : '.$search.'<br>';
-            echo 'nombre de résultat : '.count($result).'<br>';
+            echo '<div class="entete"> resultat de la recherche : '.$search.'<br>';
+            echo 'nombre de résultat : '.count($result).'<br></div>';
             if($result){
                 
                 foreach($result as $row){
@@ -57,8 +58,8 @@
                     echo 'aucun resultat';
                 }else{
                     $id_theses = $req->fetchAll(); // recupere l'id des theses dont l'auteur est la personne
-                    echo 'resultat de la recherche : '.$nom.' '.$prenom.'<br>';
-                    echo 'nombre de résultat : '.count($id_theses).'<br>';
+                    echo '<div class="entete">resultat de la recherche : '.$nom.' '.$prenom.'<br>';
+                    echo 'nombre de résultat : '.count($id_theses).'<br></div>';
 
 
                     if($id_theses){

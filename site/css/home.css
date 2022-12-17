@@ -1,0 +1,48 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.form {
+
+    margin: 1px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.form form{
+    align-items: center;
+}
+
+.these{
+    margin: 20px;
+    padding: 1%;
+    box-shadow: 1px 1px 1px 1px gray;
+}
+
+.autheur{
+    margin: 1px;
+    text-align: center;
+    color: rgb(235, 79, 79);
+    padding: 10px;
+}
+.resume{
+    padding: 0 2%;
+}
+
+.these h3{
+    margin: 1px;
+    text-align: center;
+    color: rgb(235, 79, 79);
+    padding: 10px;
+}
+
+.entete{
+    margin: 1px;
+    text-align: center;
+    text-shadow: 1px 1px 1px gray;
+    color: black;
+    padding: 10px;
+}
