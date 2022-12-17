@@ -1,12 +1,11 @@
 <?php
-global $cnx;
 require_once("structs/These.php");
 require_once("structs/Personne.php");
 require_once("structs/Role.php");
 require_once("structs/Etablissement.php");
 require_once("structs/Sujet.php");
 require_once("structs/oai.php");
-require_once("cnx.inc.php");
+require_once("../cnx.inc.php");
 
 function MakeThese($data){
     $these = new These();
