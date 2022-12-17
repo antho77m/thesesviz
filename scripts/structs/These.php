@@ -16,10 +16,26 @@ class These {
 
     }
 
-    public function insertThese($cnx){
-        //TODO
+    public function insertThese(PDO $cnx){
+
+        $req = $cnx->prepare("INSERT INTO these (discipline, these_sur_travaux, date_soutenance, embargo, langue, en_ligne, nnt, resume, soutenue, titre) VALUES (:discipline, :these_sur_travaux, :date_soutenance, :embargo, :langue, :en_ligne, :nnt, :resume, :soutenue, :titre)");
+        $req ->bindParam(":discipline",$this->discipline);
+        $req ->bindParam(":these_sur_travaux",$this->these_sur_travaux);
+        $req ->bindParam(":date_soutenance",$this->date_soutenance);
+        $req ->bindParam(":embargo",$this->embargo);
+        $req ->bindParam(":langue",$this->langue);
+        $req ->bindParam(":en_ligne",$this->en_ligne);
+        $req ->bindParam(":nnt",$this->nnt);
+        $req ->bindParam(":resume",$this->resume);
+        $req ->bindParam(":soutenue",$this->soutenue);
+        $req ->bindParam(":titre",$this->titre);
+
+
+        $req->execute();
+        return $cnx->lastInsertId();
+
     }
-    
+
     // Getters and setters
 
     public function setDiscipline($discipline){

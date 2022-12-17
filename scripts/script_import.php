@@ -1,30 +1,33 @@
 <?php
+global $cnx;
 require_once("structs/These.php");
 require_once("structs/Personne.php");
 require_once("structs/Role.php");
 require_once("structs/Etablissement.php");
 require_once("structs/Sujet.php");
 require_once("structs/oai.php");
+require_once("cnx.inc.php");
 
 function MakeThese($data){
     $these = new These();
     if(isset($data["discipline"]["fr"])){
         $these->setDiscipline($data["discipline"]["fr"]);
     }
-    $these->setTheseSurTravaux($data["these_sur_travaux"]);
+    $these->setTheseSurTravaux($data["these_sur_travaux"]=="oui"?1:0);
     $these->setDateSoutenance($data["date_soutenance"]);
     $these->setEmbargo($data["embargo"]);
     $these->setLangue($data["langue"]);
-    $these->setEnLigne($data["accessible"]);
+    $these->setEnLigne($data["accessible"]=="oui"?1:0);
     $these->setNnt($data["nnt"]);
     if (isset($data["resumes"]["fr"])) {
         $these->setResume($data["resumes"]["fr"]);
     }
-    $these->setSoutenue($data["status"]?1:0);
+    $these->setSoutenue($data["status"]=="soutenue"?1:0);
     if (isset($data["titre"]["fr"])) {
         $these->setTitre($data["titres"]["fr"]);
     }
     return $these;
+       
 }
 
 
@@ -43,7 +46,7 @@ function getPersonnes($data){
     }
 
     //gestion des roles pouvant avoir plusieurs personnes
-    $roles = array("directeurs_these","membres_jury","auteurs"); 
+    $roles = array("directeurs_these","membres_jury","auteurs","rapporteurs"); 
     foreach($roles as $role){
         if(isset($data[$role])){
         
@@ -105,6 +108,11 @@ try {
 } catch (Exception $e) {
     exit("Error while reading file");
 }
+
+$cnx->exec("ALTER TABLE these AUTO_INCREMENT = 1");
+$cnx->exec("ALTER TABLE personnes AUTO_INCREMENT = 1");
+echo "Import lancé a : ".date("H:i:s")."<br>";
+$cnx->exec("BEGIN");
 foreach($data as $theseData){
     $these = MakeThese($theseData);
     $personnes = getPersonnes($theseData);
@@ -112,13 +120,22 @@ foreach($data as $theseData){
     $sujets = getSujets($theseData);
     $oais = getoais($theseData);
 
+    $theseId= intval($these->insertThese($cnx));
+
     foreach($oais as $oai){
-        $oai->printoai();
+        $oai->insertOai($cnx,$theseId);
     }
-
-    echo "<br><br><br><br>";
-
+    foreach($sujets as $sujet){
+        $sujet->insertSujet($cnx,$theseId);
+    }
+    foreach($etablissements as $etablissement){
+        $etablissement->insertEtablissement($cnx,$theseId);
+    }
+    foreach($personnes as $personne){
+        $personne->insertPersonne($cnx,$theseId);
+    }
 }
 
-
+$cnx->exec("COMMIT");
+echo "Import terminé a : ".date("H:i:s")."<br>";
 ?>

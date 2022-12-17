@@ -11,9 +11,18 @@ class Role{
         echo "Libelle: ".$this->libelle;
     }
     
-
+    
     public function insertRoles($cnx){
-        //TODO
+        $req = $cnx->prepare("SELECT libelle FROM role WHERE libelle = :libelle");
+        $req->bindParam(':libelle',$this->libelle);
+        $req->execute();
+        if($req->rowCount() == 0){
+            $req = $cnx->prepare("INSERT INTO role (libelle) VALUES (:libelle)");
+            $req->bindParam(':libelle',$this->libelle);
+            $req->execute();
+        }
+        return $this->libelle;
+
     }
 }
 
