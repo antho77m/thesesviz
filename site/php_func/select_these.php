@@ -10,7 +10,7 @@
             echo '<div class="these">';
             echo '<h3>'.$row['titre'].'</h3>';
             echo '<p class="resume">'.$row['resume'].'</p>';
-            echo '<p class="autheur"> These écrite par '.$row['nom'].' '.$row['prenom'].'</p>';
+            echo '<p class="auteur"> These écrite par '.$row['nom'].' '.$row['prenom'].'</p>';
             echo '</div>';
         }
 
