@@ -13,13 +13,19 @@
 <body>
     <div class="form">
         <form action="" method="get">
-            rechercher via le titre d'une these <br>
+            <br>
+            effectué une recherche par :
+            <div class="type_recherche">
+                <div><input type="radio" name="recherche" value="titre" id=""> titre</div>
+                <div> <input type="radio" name="recherche" value="auteur" id=""> auteur</div>
+                <div><input type="radio" name="recherche" value="mot clef" id="" default> mot clef</div>
+            </div> 
             <input type="search" name="search" id="">
             <br>
             <input type="submit" value="Rechercher">
-        
+
         </form>
-        <form action="" method="get">
+        <!--<form action="" method="get">
             rechercher via l'auteur d'une these
             <br>
             
@@ -29,7 +35,7 @@
             <br>
             
             <input type="submit" value="Rechercher">
-        </form>
+        </form>-->
 
     </div>
     <div>
