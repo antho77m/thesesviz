@@ -18,14 +18,43 @@
 
 
     function selectBySearch(){
+
+        if(isset($_GET['search']) ){
+        
+        }
+            
+
+
+
+
         if(isset($_GET['search'])){
             require_once('../../cnx.inc.php');
             $search = $_GET['search'];
             
-            $req = $cnx->prepare("SELECT id_these FROM these WHERE titre LIKE '%$search%'");
+            //$req = $cnx->prepare("SELECT id_these FROM these WHERE titre LIKE '%$search%'");
+             
+            // SELECT DISTINCT id_these ,MATCH(prenom,nom) AGAINST (":search") AS score_personne,MATCH(titre) AGAINST (":search") AS score_titre ,MATCH(resume) AGAINST (":search") AS score_resume FROM these NATURAL JOIN participe NATURAL JOIN Personnes Roles WHERE MATCH(prenom,nom) AGAINST (":search") OR MATCH(titre) AGAINST (":search") OR MATCH(resume) AGAINST (":search") ORDER BY (score_personne*5+score_titre*5+score_resume*1) DESC LIMIT 10
+            /*$req = $cnx->prepare("SELECT DISTINCT id_these   
+                                    FROM these NATURAL JOIN participe 
+                                        NATURAL JOIN personnes 
+                                        NATURAL JOIN parle
+                                        NATURAL JOIN sujet
+                                            WHERE MATCH(prenom,nom) AGAINST (:search) 
+                                                OR MATCH(titre) AGAINST (:search)
+                                                OR MATCH(sujet.libelle) AGAINST (:search) 
+                                                    LIMIT 10");*/
+            $req = $cnx->prepare("SELECT DISTINCT id_these   
+            FROM these NATURAL JOIN participe 
+                NATURAL JOIN personnes 
+                    WHERE MATCH(prenom,nom) AGAINST (:search) 
+                        OR MATCH(titre) AGAINST (:search)");
+
+        
+            $req->bindParam(':search',$search);
+            
             $req->execute();
             $result = $req->fetchAll();
-            echo '<div class="entete"> resultat de la recherche : '.$search.'<br>';
+            echo '<div class="entete"> resultat de la recherche : '.htmlspecialchars($search).'<br>';
             echo 'nombre de résultat : '.count($result).'<br></div>';
             if($result){
                 

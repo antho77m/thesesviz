@@ -16,27 +16,12 @@
             <br>
             effectué une recherche par :
             <div class="type_recherche">
-                <div><input type="radio" name="recherche" value="titre" id=""> titre</div>
-                <div> <input type="radio" name="recherche" value="auteur" id=""> auteur</div>
-                <div><input type="radio" name="recherche" value="mot clef" id="" default> mot clef</div>
             </div> 
-            <input type="search" name="search" id="">
+            <input type="search" name="search" id="" autocomplete="off" placeholder="faire une recherche">
             <br>
             <input type="submit" value="Rechercher">
 
         </form>
-        <!--<form action="" method="get">
-            rechercher via l'auteur d'une these
-            <br>
-            
-            nom :<input type="text" name="nom" require autocomplete="off" autocapitalize="on" require>
-            <br>
-            prenom :<input type="text" name="prenom" id="" autocomplete="off" autocapitalize="on" require>
-            <br>
-            
-            <input type="submit" value="Rechercher">
-        </form>-->
-
     </div>
     <div>
     <?php
