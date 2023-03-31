@@ -68,3 +68,16 @@ footer{
     
 
 }
+
+.graphes{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.graphes div{
+    width: 35%;
+    margin: 10px;
+    padding: 2px;
+}
