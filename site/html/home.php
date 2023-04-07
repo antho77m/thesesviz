@@ -4,11 +4,6 @@
 
         $result = selectBySearch($cnx);   // affiche les résultats de la recherche par titre
         
-        echo '<div class="entete">';
-        if(isset($_GET['search']) && !empty($_GET['search'])){
-            echo 'resultat de la recherche : '.htmlspecialchars($_GET['search']).'<br>';
-        }
-        echo 'nombre de theses : '.count($result).'<br></div>';
         if($result){
             
             include_once('../php_func/count.php'); 
@@ -38,6 +33,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
     <link rel="stylesheet" href="../css/home.css">
     <title>Document</title>
 </head>
@@ -46,45 +42,64 @@
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/wordcloud.js"></script>
 
-    <div class="form">
-        <form action="" method="get">
-            <br>
-            effectué une recherche par :
-            <div class="type_recherche">
-            </div> 
-            <input type="search" name="search" id="" autocomplete="off" placeholder="faire une recherche">
-            <br>
-            <input type="submit" value="Rechercher">
 
-        </form>
-    </div>
-    <div>
-      
-    </div>
+    <header>
+      <div class="titre">
+        <h1>thesesviz</h1>
+        <h3>visualisation des theses soutenues en france</h3>
+      </div>
+        <!--<div class="form">
+            <form action="" method="get">
+                <br>
+                effectuer une recherche par auteur ou these:
+                <div class="type_recherche">
+                </div> 
+                <input type="search" name="search" id="" autocomplete="off" placeholder="faire une recherche">
+                <br>
+                <input type="submit" value="Rechercher">
+    
+            </form>
+        </div>--> 
+        <form action="" method="get" class="input-box">
+            <i class="uil uil-search"></i>
+          <input type="text" placeholder="Effectuer une recherche" />
+          <button class="button">Rechercher</button>
+        </form>       
+    </header>
+    
+      <div class="chiffre_clef">
+        <ul>
+            <li>nombre de theses : <br><span> <?php echo $countTheses; ?></span></li>
+            <li>nombre de theses en ligne : <br><span> <?php echo $online?></span></li>
+            <li>nombre d'établissement : <br><span><?php echo $countEtablissement; ?></span></li>
+            <li>nombre de directeur : <br><span><?php echo $countDirecteur; ?></span></li>
+        </ul>
+      </div>
     <div class="graphes">
       
        
 
-        <div class="diag"id="theses_en_ligne"  ></div>
+        <div class=" circulaire"id="theses_en_ligne"  ></div>
+        
+        <div class=" circulaire"id="theses_embargo" ></div>
+
+        <div class=" circulaire"id="theses_par_langue" ></div>
+
+        <div class=" circulaire"id="theses_par_discipline" ></div>
 
         <div class="diag"id="theses_par_ans" ></div>
         
         
         <div class="diag"id="theses_par_mois" ></div>
-        
-        <div class="diag"id="theses_embargo" ></div>
 
-        <div class="diag"id="theses_par_langue" ></div>
-
-        <div class="diag"id="theses_par_discipline" ></div>
-
-        <div class="diag"id="nuage_de_sujet" ></div>
+        <div class="nuage"id="nuage_de_sujet" ></div>
 
     </div>
     
     <div>
-      <?
+      <?php
       if($result){
+        echo 'resultat de la recherche : '.htmlspecialchars($_GET['search']).'<br>';
         for($i=0;$i<count($result);$i++){
           if($i==10){
               break;
@@ -96,8 +111,9 @@
         echo 'aucun resultat';
       }
 
-?>
+  ?>
     </div>
+    <br><br><br><br><br><br>
 
     <footer>
         <a href="https://github.com/antho77m/thesesviz">lien du projet</a> <br>

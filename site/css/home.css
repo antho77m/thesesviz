@@ -6,8 +6,7 @@
 }
 
 body{
-    background-color: rgb(218, 238, 253);
-    
+    background: linear-gradient(163deg, rgba(255,255,255,1) 0%, rgba(0,212,255,0.2806256291579131) 100%);
 }
 
 
@@ -16,9 +15,6 @@ body{
     margin: 1px;
     display: flex;
     justify-content: space-around;
-    align-items: center;
-}
-.form form{
     align-items: center;
 }
 
@@ -77,11 +73,143 @@ footer{
 }
 
 .graphes div{
-    margin: 10px;
-    padding: 2px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 .diag{
-    width: 25%;
+    width: 48%;
+    min-width: 500px;
+    height: 40%;
+}
+.circulaire{
+    width: 20%;
     height: 100%;
     padding: 2px;
+    min-width: 350px;
+}
+
+.nuage{
+    width: 48%;
+    min-width: 500px;
+    height: 40%;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0.8px 0.8px 0.8px 0.8px gray;
+
+}
+header .titre{
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgb(218, 238, 253);
+    box-shadow: 0.8px 0.8px 0.8px 0.8px gray;
+    
+}
+header form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 1px 1px 1px 1px gray;
+    border-radius: 5px;
+    width: 80%;
+    background-color: rgb(218, 238, 253);
+}
+.chiffre_clef ul{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    padding: 10px;
+    width: 75%;
+    margin: auto;
+    
+}
+.chiffre_clef ul li{
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: rgb(218, 238, 253);
+    box-shadow: 1px 1px 1px 1px gray;
+    text-align: center;
+
+
+}
+.chiffre_clef ul li span{
+    color: red;
+    font-weight: bold;
+    font-size: 20px;
+}
+header form {
+    position: relative;
+    height: 50px;
+    max-width: 600px;
+    width: 75% ;
+    background: rgb(218, 238, 253);
+    margin: 0 20px;
+    border-radius: 8px;
+    box-shadow: 1px 1px 1px 1px gray;
+    
+    
+  }
+header form i,
+header form .button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+header form i {
+    left: 20px;
+    font-size: 30px;
+    color: #707070;
+}
+header form input {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    font-size: 18px;
+    font-weight: 400;
+    border: none;
+    padding: 0 155px 0 65px;
+    background-color: transparent;
+}
+header form .button {
+    right: 20px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #fff;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 6px;
+    background-color: #4070f4;
+    cursor: pointer;
+}
+header form .button:active {
+    transform: translateY(-50%) scale(0.98);
+}
+
+@media screen and (max-width: 500px) {
+    header form {
+        height: 66px;
+        margin: 0 8px;
+    }
+    header form i {
+        left: 12px;
+        font-size: 25px;
+    }
+    header form input {
+        padding: 0 112px 0 50px;
+    }
+    header form .button {
+        right: 12px;
+        font-size: 14px;
+        padding: 8px 18px;
+    }
 }
