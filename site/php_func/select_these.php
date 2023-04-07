@@ -1,7 +1,7 @@
 <?php
     function printTheseById($id,PDO $cnx){
         
-        $req = $cnx->prepare("SELECT * FROM these NATURAL JOIN participe NATURAL JOIN Personnes WHERE id_these = :id AND libelle = 'auteurs'");
+        $req = $cnx->prepare("SELECT * FROM these NATURAL JOIN participe NATURAL JOIN personnes WHERE id_these = :id AND libelle = 'auteurs'");
         $req->bindParam(':id',$id);
         $req->execute();
         $result = $req->fetchAll();

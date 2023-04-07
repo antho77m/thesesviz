@@ -1,4 +1,6 @@
     <?php
+        error_reporting(E_ALL);
+        ini_set("display_errors", 1);
         require_once('../../cnx.inc.php');
         require_once('../php_func/select_these.php');
 
@@ -92,7 +94,10 @@
     <div>
       <?php
       if($result){
-        echo 'resultat de la recherche : '.htmlspecialchars($_GET['search']).'<br>';
+        if(isset($_GET['search'])){
+          echo 'resultat de la recherche : '.htmlspecialchars($_GET['search']).'<br>';
+        }
+        //print_r($result);
         for($i=0;$i<count($result);$i++){
           if($i==10){
               break;

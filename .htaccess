@@ -1,4 +1,4 @@
 AuthType Basic
 AuthName "restriction d'acces"
-AuthUserFile ./.htpasswd
+AuthUserFile /home/3binf2/anthonin.bleuse/WWW-perso/thesesviz/.htpasswd
 Require valid-user
