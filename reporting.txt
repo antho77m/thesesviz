@@ -1,6 +1,8 @@
 création de la base de données :  4h
 création du script d'import : 20h
-création du site web : 4h
+création du site web : 20h
+(création des graphes : 8h)
+
 
 
 
