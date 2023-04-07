@@ -4,13 +4,13 @@
 
         $result = selectBySearch($cnx);   // affiche les résultats de la recherche par titre
         
+        include_once('../php_func/count.php'); 
+        $countTheses = countAllTheses($cnx); // nombre de theses total
+        $countEtablissement = countAllEtablissement($cnx); // nombre d'établissement total 
+        $countOnline = countAllOnlineTheses($cnx); // nombre de theses en ligne
+        $countDirecteur = countAllDirecteur($cnx); // nombre de directeur
         if($result){
             
-            include_once('../php_func/count.php'); 
-            $countTheses = countAllTheses($cnx); // nombre de theses total
-            $countEtablissement = countAllEtablissement($cnx); // nombre d'établissement total 
-            $countOnline = countAllOnlineTheses($cnx); // nombre de theses en ligne
-            $countDirecteur = countAllDirecteur($cnx); // nombre de directeur
 
             // on récupère les données qui vont servir par rapport a la recherche de l'utilisateur
             $total = count($result); // nombre de theses  (theses soutenue)
@@ -48,31 +48,24 @@
         <h1>thesesviz</h1>
         <h3>visualisation des theses soutenues en france</h3>
       </div>
-        <!--<div class="form">
-            <form action="" method="get">
-                <br>
-                effectuer une recherche par auteur ou these:
-                <div class="type_recherche">
-                </div> 
-                <input type="search" name="search" id="" autocomplete="off" placeholder="faire une recherche">
-                <br>
-                <input type="submit" value="Rechercher">
-    
-            </form>
-        </div>--> 
-        <form action="" method="get" class="input-box">
+        <form action="" method="get" class="input-box" id="form">
             <i class="uil uil-search"></i>
-          <input type="text" placeholder="Effectuer une recherche" />
-          <button class="button">Rechercher</button>
+          <input type="search" name="search" autocomplete="off" placeholder="Faire une recherche" />
+          <button onclick="submit()" class="button">Rechercher</button>
+          <script>
+            function submit() {
+              document.getElementById("form").submit();
+            }
+          </script>
         </form>       
     </header>
     
       <div class="chiffre_clef">
         <ul>
-            <li>nombre de theses : <br><span> <?php echo $countTheses; ?></span></li>
-            <li>nombre de theses en ligne : <br><span> <?php echo $online?></span></li>
-            <li>nombre d'établissement : <br><span><?php echo $countEtablissement; ?></span></li>
-            <li>nombre de directeur : <br><span><?php echo $countDirecteur; ?></span></li>
+            <li>nombre de theses <br><span> <?php echo $countTheses; ?></span></li>
+            <li>nombre de theses en ligne <br><span> <?php echo $countOnline?></span></li>
+            <li>nombre d'établissement <br><span><?php echo $countEtablissement; ?></span></li>
+            <li>nombre de directeur <br><span><?php echo $countDirecteur; ?></span></li>
         </ul>
       </div>
     <div class="graphes">
