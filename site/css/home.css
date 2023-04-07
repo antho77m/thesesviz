@@ -77,7 +77,11 @@ footer{
 }
 
 .graphes div{
-    width: 35%;
     margin: 10px;
+    padding: 2px;
+}
+.diag{
+    width: 25%;
+    height: 100%;
     padding: 2px;
 }

@@ -1,5 +1,5 @@
 <?php
-    function printTheseSawById($id,PDO $cnx){
+    function printTheseById($id,PDO $cnx){
         
         $req = $cnx->prepare("SELECT * FROM these NATURAL JOIN participe NATURAL JOIN Personnes WHERE id_these = :id AND libelle = 'auteurs'");
         $req->bindParam(':id',$id);
@@ -10,7 +10,7 @@
             echo '<div class="these">';
             echo '<h3>'.$row['titre'].'</h3>';
             echo '<p class="resume">'.$row['resume'].'</p>';
-            echo '<p class="auteur"> These écrite par '.$row['nom'].' '.$row['prenom'].'</p>';
+            echo '<p class="auteur"><a href="https://www.theses.fr/'.$row['nnt'].'"> These écrite par '.$row['nom'].' '.$row['prenom'].'</a></p>';
             echo '</div>';
         }
 
@@ -36,7 +36,7 @@
                                                 OR MATCH(titre) AGAINST (:search)
                                                 OR MATCH(sujet.libelle) AGAINST (:search) 
                                                     LIMIT 10");*/
-            $req = $cnx->prepare("SELECT DISTINCT id_these,en_ligne,date_soutenance   
+            $req = $cnx->prepare("SELECT DISTINCT nnt,discipline,langue,embargo,id_these,en_ligne,date_soutenance   
             FROM these NATURAL JOIN participe 
                 NATURAL JOIN personnes 
                     WHERE (MATCH(prenom,nom) AGAINST (:search) AND libelle = 'auteur') 
@@ -46,23 +46,15 @@
             $result = $req->fetchAll();
             return $result;
         }else{
-            $req = $cnx->prepare("SELECT DISTINCT id_these,en_ligne,date_soutenance   
+            $req = $cnx->prepare("SELECT DISTINCT nnt,discipline,langue,embargo,id_these,en_ligne,date_soutenance   
             FROM these;");
             $req->execute();
             $result = $req->fetchAll();
             return $result;
-        }
-
-
-        
-
-
-            
-                
-    
-        
-        
+        }      
     }
+
+    
 
     
     
